@@ -6,7 +6,7 @@ int main()
 {
 	srand((unsigned)time(NULL));
 	int length;
-
+	std::cout << "Input len of array (len % 2 = 1): "
 	do {
 		std::cout << "Input correct length: ";
 		std::cin >> length;
