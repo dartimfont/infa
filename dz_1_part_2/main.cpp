@@ -26,6 +26,10 @@ void outputVector(Vector* vec) {
 }
 
 void sumVec(Vector* vec_1, Vector* vec_2) {
+    if (vec_1 == NULL || vec_2 == NULL) {
+        std::cout << "Input vectors!!!" << std::endl;
+        return;
+    }
     Vector* vecRes = initVector(vec_1->dim);
     for (int i = 0; i < vecRes->dim; i++) {
         vecRes->coords[i] = vec_1->coords[i] + vec_2->coords[i];
@@ -35,6 +39,10 @@ void sumVec(Vector* vec_1, Vector* vec_2) {
 }
 
 void raznostVec(Vector* vec_1, Vector* vec_2) {
+    if (vec_1 == NULL || vec_2 == NULL) {
+        std::cout << "Input vectors!!!" << std::endl;
+        return;
+    }
     Vector* vecRes = initVector(vec_1->dim);
     for (int i = 0; i < vecRes->dim; i++) {
         vecRes->coords[i] = vec_1->coords[i] - vec_2->coords[i];
@@ -44,6 +52,10 @@ void raznostVec(Vector* vec_1, Vector* vec_2) {
 }
 
 void multVecForScale(Vector* vec, const double scale) {
+    if (vec_1 == NULL || vec_2 == NULL) {
+        std::cout << "Input vectors!!!" << std::endl;
+        return;
+    }
     Vector* vecRes = initVector(vec->dim);
     for (int i = 0; i < vecRes->dim; i++) {
         vecRes->coords[i] = scale * vec->coords[i];
@@ -53,6 +65,10 @@ void multVecForScale(Vector* vec, const double scale) {
 }
 
 void equalVecs(Vector* vec_1, Vector* vec_2) {
+    if (vec_1 == NULL || vec_2 == NULL) {
+        std::cout << "Input vectors!!!" << std::endl;
+        return;
+    }
     bool flag = true;
     for (int i = 0; i < vec_1->dim; i++) {
         if (vec_1->coords[i] != vec_2->coords[i]) {

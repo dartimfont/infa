@@ -1,46 +1,20 @@
 #include <iostream>
-#include <ctime>
 
 #include "Module.hpp"
 
-int main()
-{
-    srand((unsigned)time(NULL));
-
+int main() {
     int length;
     std::cout << "Enter length: ";
-    std::cin >> length;
-
-    int** array = new int*[length];
-    for (int i = 0; i < length; i++)
-    {
-        array[i] = new int[length];
-    }
-
-    for (int i = 0; i < length; i++)
-    {
-        for (int j = 0; j < length; j++)
-        {
-            array[i][j] = rand() % 101 - 50;
-            printf("%4i", array[i][j]);
-        }
-        printf("\n");
-    }
-
-    for (int i = 0; i < length; i++)
-    {
-        module(array, length, i);
-    }
-
-    for (int i = 0; i < length; i++)
-    {
-        for (int j = 0; j < length; j++)
-        {
-            printf("%4i", array[i][j]);
-        }
-        printf("\n");
-    }
-
-
+    do {
+        std::cin >> length;
+        if (length % 2 == 0)
+            std::cout << "Try input again: ";
+    } while (length % 2 == 0);
+    int** array = init_matrix(length);
+    print_matrix(array, length);
+    module(array, length);
+    print_matrix(array, length);
+    delete_matrix(array, length);
+    system("pause");
     return 0;
 }

@@ -1,78 +1,60 @@
 #include <iostream>
-//#include "module.hpp"
-
-void deleteString(int** array, int& raw, int column, int index) {
-    int temp = 0;
-    for (int i = index; i < raw; i++)
-    {
-        for (int j = 0; j < column; j++)
-        {
-            temp = *(*(array + i) + j);
-            *(*(array + i) + j) = *(*(array + i + 1) + j);
-            *(*(array + i + 1) + j) = temp;
-        }
-
-        for (int i = 0; i < raw; i++) {
-            for (int j = 0; j < column; j++) {
-                std::cout << *(*(array + i) + j) << " ";
-            }
-            std::cout << "\n";
-        }
-        std::cout << "\n";
-    }
-    raw--;
-}
+#include <ctime>
+#include "module.hpp"
 
 int main() {
+    system("color E1");
     srand((unsigned)time(NULL));
-    int n, m, t;
+    int n, m;
     std::cout << "Vvedite kolichestvo strok: ";
     std::cin >> n;
     std::cout << "Vvedite kolichestvo stolbsov: ";
     std::cin >> m;
-    t = n;
 
-    int** array = new int* [n];
-    for (int i = 0; i < n; i++)
-    {
-        *(array + i) = new int[m];
+    int** matrix = new int* [n];
+    for (int i = 0; i < n; i++) {
+        *(matrix + i) = new int[m];
     }
-
-    int* l = new int[t];
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            *(*(array + i) + j) = rand() % 100 + 3;
+            *(*(matrix + i) + j) = rand() % 100 + 3;
         }
     }
-
     std::cout << "Input matrix\n";
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            std::cout << *(*(array + i) + j) << " ";
-        }
-        std::cout << std::endl;
-    }
+    printMatrix(matrix, n, m);
 
-    std::cout << "Massiv s indeksami strok: ";
+    int* l = new int[n];
     for (int i = 0; i < n; i++) {
         *(l + i) = rand() % n;
+    } 
+    std::cout << "Massiv s indeksami strok: ";
+    for (int i = 0; i < n; i++) {
         std::cout << *(l + i) << " ";
     }
     std::cout << std::endl;
+    sort(l, n);
 
-    deleteString(array, n, m, 0);
-
-
-    std::cout << "Output matrix\n";
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            std::cout << *(*(array + i) + j) << " ";
+    int cnt = 1;
+    int lenIndex = n;
+    deleteString(matrix, n, m, *l);
+    for (int i = 1; i < lenIndex; i++) {
+        if (*(l + i) != *(l + i - 1)) {
+            deleteString(matrix, n, m, *(l + i) - cnt);
+            cnt++;
         }
-        std::cout << std::endl;
     }
 
+    std::cout << "Output matrix\n";
+    printMatrix(matrix, n - cnt, m);
 
+    system("pause");
     delete[] l;
+
+    for (int i = 0; i < n; i++) {
+        delete[] matrix[i];
+    }
+    delete[] matrix;
+
     return 0;
 }

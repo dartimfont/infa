@@ -1,32 +1,52 @@
+#include <iostream>
+
 #include "Module.hpp"
 
-void module(int** array, int length, int index)
-{
-    int counterPositive = 0;
-    int counterNegative = 0;
-
-    for (int i = 0; i < length; i++)
-    {
-        if (array[index][i] < 0)
-        {
-            counterNegative++;
-        }
-        else
-        {
-            counterPositive++;
+int** init_matrix(int length) {
+    srand((unsigned)time(NULL));
+    int** array = new int* [length];
+    for (int i = 0; i < length; i++) {
+        *(array + i) = new int [length];
+        for (int j = 0; j < length; j++) {
+            *(*(array + i) + j) = rand() % 101 - 50;
         }
     }
+    return array;
+}
 
-    array[index][length/2] = counterPositive - counterNegative;
+void print_matrix(int** array, int length) {
+    for (int i = 0; i < length; i++) {
+        for (int j = 0; j < length; j++) {
+            std::cout.width(4);
+            std::cout << *(*(array + i) + j);
+        }
+        std::cout << std::endl;
+    }
+}
 
-    std::cout << "String " << index + 1 << std::endl;
+void delete_matrix(int** array, int length) {
+    for (int i = 0; i < length; i++) {
+        delete[] *(array + i);
+    }
+    delete[] array;
+}
 
-    std::cout << "Quantity positive nums: "
-        << counterPositive << std::endl;
-
-    std::cout << "Quantity negative nums: "
-        << counterNegative << std::endl;
-
-    std::cout << "Positive minus negative: "
-        << array[index][length/2] << std::endl << std::endl;
+void module(int** array, int length) {
+    int counterPositive;
+    int counterNegative;
+    for (int i = 0; i < length; i++) {
+        counterPositive = 0; 
+        counterNegative = 0;
+        for (int j = 0; j < length; j++) {
+            if (*(*(array + i) + j) < 0)
+                counterNegative++;
+            else
+                counterPositive++;
+        }
+        *(*(array + i) + length / 2) = counterPositive - counterNegative;
+        std::cout << "String " << i + 1 << std::endl;
+        std::cout << "Quantity positive nums: " << counterPositive << std::endl;
+        std::cout << "Quantity negative nums: " << counterNegative << std::endl;
+        std::cout << "Positive minus negative: " << *(*(array + i) + length / 2) << std::endl << std::endl;
+    }
 }

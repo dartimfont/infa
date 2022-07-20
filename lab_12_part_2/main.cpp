@@ -1,9 +1,8 @@
 #include <iostream>
 
-int main()
-{
+int main() {
+    system("color E1");
     srand((unsigned)time(NULL));
-
     int len;
     std::cout << "Input len of matrix: ";
     std::cin >> len;
@@ -15,7 +14,7 @@ int main()
 
     for (int i = 0; i < len; i++) {
         for (int j = 0; j < len; j++) {
-            *(*(array + i) +j) = rand() % 50 + 10;
+            *(*(array + i) + j) = rand() % 50 + 10;
         }
     }
 
